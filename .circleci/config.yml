@@ -3,9 +3,13 @@ version: 2.1
 jobs:
   build:
     docker:
-      - image: node:alpine
+      - image: cimg/node:20.10.0
     steps:
       - checkout
+
+      - run:
+          name: Check Node version
+          command: docker version
 
       - run:
           name: Check Docker version
