@@ -8,6 +8,10 @@ jobs:
       - checkout
 
       - run:
+          name: Check Docker version
+          command: docker version
+
+      - run:
           name: Build Docker Image
           command: docker build -t rtemurbek/react-docker -f Dockerfile.dev .
 
