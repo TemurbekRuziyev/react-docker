@@ -11,7 +11,7 @@ jobs:
 
       - run:
           name: Check Node version
-          command: docker version
+          command: node version
 
       - run:
           name: Check Docker version
@@ -24,3 +24,36 @@ jobs:
       - run:
           name: Run Tests
           command: docker run rtemurbek/react-docker npm run test -- --coverage
+  deploy:
+    docker:
+      - image: cimg/node:20.10.0
+    steps:
+      - checkout
+
+      - run:
+          name: Install AWS CLI
+          command: sudo apt-get install -y awscli
+
+      - run:
+          name: Configure AWS CLI
+          command: aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID && aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY && aws configure set region $AWS_REGION
+
+      - run:
+          name: Deploy to Elastic Beanstalk
+          command: eb deploy YOUR_EB_ENVIRONMENT_NAME
+
+workflows:
+  version: 2
+  build_and_deploy:
+    jobs:
+      - build:
+          filters:
+            branches:
+              only:
+                - main
+
+      - deploy:
+          filters:
+            branches:
+              only:
+                - main
