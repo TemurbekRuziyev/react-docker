@@ -11,7 +11,7 @@ jobs:
 
       - run:
           name: Check Node version
-          command: node version
+          command: node --version
 
       - run:
           name: Check Docker version
@@ -29,6 +29,10 @@ jobs:
       - image: cimg/node:20.10.0
     steps:
       - checkout
+
+      - run:
+          name: Update packages
+          command: sudo apt-get update
 
       - run:
           name: Install AWS CLI
