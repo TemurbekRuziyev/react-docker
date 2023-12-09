@@ -44,7 +44,7 @@ jobs:
 
       - run:
           name: Deploy to Elastic Beanstalk
-          command: eb deploy YOUR_EB_ENVIRONMENT_NAME
+          command: eb deploy Docker-react-env-1
 
 workflows:
   version: 2
