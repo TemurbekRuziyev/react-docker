@@ -47,6 +47,10 @@ jobs:
           command: aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID && aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY && aws configure set region $AWS_REGION
 
       - run:
+          name: Initialize Elastic Beanstalk
+          command: eb init -r $AWS_REGION -p docker -k docker-react Docker-react-env-1
+
+      - run:
           name: Deploy to Elastic Beanstalk
           command: eb deploy Docker-react-env-1
 
